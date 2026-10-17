@@ -1233,10 +1233,17 @@ if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
   hls.loadSource(HLS_SRC);
   hls.attachMedia(heroVid);
 }
-heroPlayBtn.addEventListener('click', () => {
-  heroVid.play();
-  heroPlayBtn.classList.add('hidden');
-});
+function heroTogglePlay() {
+  if (heroVid.paused) {
+    heroVid.play().then(() => {
+      heroPlayBtn.classList.add('hidden');
+    }).catch(() => {});
+  } else {
+    heroVid.pause();
+  }
+}
+heroPlayBtn.addEventListener('click', e => { e.stopPropagation(); heroTogglePlay(); });
+document.querySelector('.hero-card').addEventListener('click', heroTogglePlay);
 heroVid.addEventListener('pause', () => heroPlayBtn.classList.remove('hidden'));
 heroVid.addEventListener('ended', () => heroPlayBtn.classList.remove('hidden'));
 </script>
