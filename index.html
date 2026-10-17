@@ -1222,6 +1222,13 @@ function toggleVid(vidId, cardId) {
   }
 }
 
+// Force first frame on preview videos (fixes black screen on mobile)
+['pv1','pv2','pv3'].forEach(id => {
+  const v = document.getElementById(id);
+  if (!v) return;
+  v.addEventListener('loadedmetadata', () => { v.currentTime = 0.001; });
+});
+
 // Hero HLS video
 const heroVid = document.getElementById('hero-vid');
 const heroPlayBtn = document.getElementById('hero-play-btn');
