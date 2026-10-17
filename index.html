@@ -3,116 +3,1269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDN</title>
-<meta property="og:title" content="PDN">
-<meta property="og:description" content="">
-<meta property="og:type" content="website">
+<title>Paraíso das Novinhas | Encontros e experiências em Angola</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.7/hls.min.js"></script>
 <style>
 :root {
   --bg:        #0e0719;
+  --bg2:       #150d24;
+  --bg3:       #1c1232;
   --fg:        #f5f0fc;
   --fg2:       #a892c8;
   --accent:    #7c3aed;
   --accent2:   #9f5cf7;
   --accent3:   #c084fc;
+  --border:    rgba(124,58,237,.28);
   --font-serif:'DM Serif Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-}
 body {
   background: var(--bg);
-  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(90,30,180,.28) 0%, transparent 70%);
+  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(90,30,180,.18) 0%, transparent 70%);
   color: var(--fg);
   font-family: var(--font-body);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-.box {
-  text-align: center;
-  max-width: 420px;
-  width: 100%;
-}
-.logo {
-  font-family: var(--font-serif);
   font-size: 15px;
-  letter-spacing: .08em;
-  color: var(--accent3);
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  opacity: .8;
-}
-.icon {
-  font-size: 52px;
-  margin-bottom: 24px;
-  display: block;
-}
-h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(26px, 7vw, 40px);
-  line-height: 1.2;
-  margin-bottom: 12px;
-  color: var(--fg);
-}
-h1 em {
-  color: var(--accent3);
-  font-style: italic;
-}
-.sub {
-  color: var(--fg2);
-  font-size: 14px;
-  margin-bottom: 44px;
   line-height: 1.6;
+  overflow-x: hidden;
+}
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(124,58,237,.09);
+  border: 1px solid rgba(124,58,237,.35);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent3);
+}
+.label::before {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent3);
+  box-shadow: 0 0 6px var(--accent3);
 }
 .btn {
-  display: inline-block;
-  width: 100%;
-  max-width: 280px;
-  padding: 18px 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: #fff;
-  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .72rem 1.6rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: filter .2s, transform .15s;
+}
+.btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(124,58,237,.45);
+}
+.btn-sm { padding: .5rem 1.1rem; font-size: 12px; }
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,6,16,.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+  font-family: var(--font-disp);
+  font-size: 22px;
+  letter-spacing: .12em;
+  background: linear-gradient(90deg, var(--accent3), var(--fg));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  padding: 56px 0 40px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,58,237,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 80%, rgba(159,92,247,.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 7vw, 72px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin: 18px 0 12px;
+  text-transform: none;
+}
+.hero-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--accent3) 0%, #e879f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-card {
+  position: relative;
+  display: inline-block;
+  margin: 32px auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid rgba(124,58,237,.45);
+  box-shadow: 0 0 60px rgba(90,20,180,.35), 0 0 120px rgba(90,20,180,.15);
+  max-width: 300px;
+  width: 100%;
+  background: #0f0820;
+}
+.hero-video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  background: #0f0820;
+}
+.hero-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(124,58,237,.85);
+  border: 2px solid rgba(255,255,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: opacity .2s, transform .2s, background .2s;
+  backdrop-filter: blur(4px);
+}
+.hero-play-btn:hover { background: var(--accent2); transform: translate(-50%, -50%) scale(1.08); }
+.hero-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+.hero-play-btn.hidden { opacity: 0; pointer-events: none; }
+.hero-card-label {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: rgba(10,6,16,.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent3);
+  z-index: 2;
+}
+.hero-card-name {
+  position: absolute;
+  bottom: 14px; left: 0; right: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  z-index: 2;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8);
+}
+
+/* SECTION HEADERS */
+.sec-head { text-align: center; padding: 40px 0 24px; }
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 5vw, 46px);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  line-height: 1.1;
+  margin: 14px 0 10px;
+  text-transform: none;
+}
+.sec-desc { color: var(--fg2); font-size: 14px; max-width: 380px; margin: 0 auto; }
+
+/* PREVIEW CARDS */
+.previews { padding-bottom: 60px; position: relative; }
+.previews-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+.previews-grid::-webkit-scrollbar { height: 4px; }
+.previews-grid::-webkit-scrollbar-track { background: var(--bg2); border-radius: 2px; }
+.previews-grid::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+.previews-grid .preview-card, .previews-grid .preview-locked {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+.preview-locked {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px;
+  gap: 12px;
+  min-height: 380px;
+}
+.preview-locked svg { color: var(--accent3); opacity: .7; width: 32px; height: 32px; }
+.preview-locked h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 400; color: var(--fg); line-height: 1.3; }
+.preview-locked p { color: var(--fg2); font-size: 13px; }
+.previews-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.preview-card {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124,58,237,.35);
+}
+.preview-thumb {
+  aspect-ratio: 9/13;
+  position: relative;
+  overflow: hidden;
+  background: #0f0820;
+}
+.preview-thumb video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.preview-thumb::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--bg2) 0%, transparent 55%);
+  pointer-events: none;
+}
+.preview-tag {
+  position: absolute;
+  top: 10px; left: 10px;
+  background: rgba(10,6,16,.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  z-index: 3;
+}
+.play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px;
+  background: rgba(124,58,237,.85);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3;
+  transition: background .2s, transform .2s, opacity .2s;
+  cursor: pointer;
+  border: none;
+}
+.preview-card:hover .play-btn { background: var(--accent2); transform: translate(-50%,-50%) scale(1.1); }
+.play-btn svg { width: 20px; height: 20px; fill: #fff; margin-left: 3px; }
+.vid-playing .play-btn { opacity: 0; pointer-events: none; }
+.preview-footer { padding: 12px 14px 14px; }
+.preview-name { font-family: var(--font-serif); font-weight: 400; font-size: 18px; }
+.preview-cta {
+  padding: 24px 0 36px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.preview-cta p { color: var(--fg2); font-size: 13px; max-width: 340px; }
+
+/* CATALOG */
+.catalog { background: var(--bg3); padding-bottom: 48px; }
+.catalog-head {
+  padding: 40px 0 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+.carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg3);
+}
+.carousel::-webkit-scrollbar { height: 4px; }
+.carousel::-webkit-scrollbar-track { background: var(--bg3); border-radius: 2px; }
+.carousel::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+.creator-card {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.creator-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(124,58,237,.3);
+}
+.creator-photo {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--bg3);
+}
+.creator-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.creator-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,6,16,.85) 0%, transparent 50%);
+}
+.creator-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  z-index: 2;
+}
+.creator-body { padding: 14px 14px 16px; }
+.creator-name { font-family: var(--font-serif); font-weight: 400; font-size: 18px; margin-bottom: 4px; }
+.creator-count {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg2);
+  margin-bottom: 12px;
+}
+.creator-actions { display: flex; flex-direction: column; gap: 8px; }
+.btn-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--fg2);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.btn-ig:hover { color: var(--fg); }
+.ig-icon { width: 14px; height: 14px; fill: var(--fg2); flex-shrink: 0; }
+.carousel-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.nav-arrow {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, border-color .2s;
+}
+.nav-arrow:hover { background: var(--accent); border-color: var(--accent); }
+
+/* VIP LOCK */
+.vip-lock {
+  background: linear-gradient(180deg, var(--bg2) 0%, #0d0918 100%);
+  padding: 56px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.vip-lock::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(124,58,237,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lock-icon {
+  width: 64px; height: 64px;
+  background: rgba(124,58,237,.15);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.lock-icon svg { width: 28px; height: 28px; fill: var(--accent3); }
+.vip-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  margin-bottom: 8px;
+}
+.vip-sub { color: var(--fg2); font-size: 14px; margin-bottom: 32px; }
+
+/* CREATOR MODAL */
+.creator-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.88); backdrop-filter: blur(6px);
+  z-index: 300; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.creator-modal-overlay.open { display: flex; }
+.creator-modal {
+  background: var(--bg2);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  width: min(94vw, 460px);
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 22px 20px 24px;
+  position: relative;
+}
+.creator-modal-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; color: var(--fg2);
+  font-size: 24px; cursor: pointer; line-height: 1;
+  transition: color .2s;
+}
+.creator-modal-close:hover { color: var(--fg); }
+.creator-modal-name {
+  font-family: var(--font-serif); font-size: 22px;
+  margin: 0 0 14px; padding-right: 28px;
+}
+.creator-modal-tabs {
+  display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.creator-tab {
+  padding: 6px 18px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--fg2);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all .18s;
+}
+.creator-tab.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.creator-modal-video video {
+  width: 100%; border-radius: 10px;
+  max-height: 65vh; display: block; background: #000;
+}
+
+/* FOOTER */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  text-align: center;
+}
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.footer-logo { font-family: var(--font-disp); font-size: 18px; letter-spacing: .12em; color: var(--fg2); }
+.footer-copy { font-size: 12px; color: var(--fg2); opacity: .6; }
+
+/* IG SVG path reutilizável */
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: #0f0a1a;
+  border: 1px solid rgba(124,58,237,.3);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 20px 28px;
+  position: relative;
+  transform: translateY(24px);
+  transition: transform .3s;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg3);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: var(--bg3); }
+.modal::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,.08);
+  border: none; border-radius: 50%;
+  color: var(--fg); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.modal-close:hover { background: rgba(255,255,255,.15); }
+.modal-title {
+  font-family: var(--font-body);
+  font-size: 18px; font-weight: 700;
+  margin-bottom: 20px; padding-right: 36px;
+  line-height: 1.3;
+}
+.plan-card {
+  background: #1a1227;
+  border: 1px solid rgba(124,58,237,.25);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.plan-card.popular { border-color: #ef4444; }
+.plan-card.vitalicio { border-color: #eab308; }
+.plan-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.badge-popular { background: #ef4444; color: #fff; }
+.badge-vitalicio { background: #eab308; color: #000; }
+.plan-name {
+  font-size: 20px; font-weight: 700;
+  margin-bottom: 14px;
+}
+.plan-features { list-style: none; margin-bottom: 16px; }
+.plan-features li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13px; color: var(--fg2);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.plan-features li::before {
+  content: '✅'; flex-shrink: 0; font-size: 13px; margin-top: 1px;
+}
+.plan-price {
+  font-size: 28px; font-weight: 700;
+  margin-bottom: 16px;
+  font-family: var(--font-disp); letter-spacing: .04em;
+}
+.btn-plan {
+  display: block; width: 100%;
+  padding: 14px;
+  border: none; border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-align: center; text-decoration: none;
+  cursor: pointer;
+  transition: filter .2s, transform .15s;
+}
+.btn-plan:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.btn-plan-default { background: var(--accent); color: #fff; }
+.btn-plan-popular { background: #ef4444; color: #fff; }
+.btn-plan-vitalicio { background: #eab308; color: #000; }
+.modal-footer {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  margin-top: 18px;
+  font-size: 11px; color: var(--fg2);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 14px;
+}
+.modal-footer span { display: flex; align-items: center; gap: 4px; }
+
+
+/* HERO CTA (aparece abaixo do vídeo após 2m30s) */
+.hero-cta-wrap {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity .6s ease, transform .6s ease, max-height .6s ease, margin-top .6s ease;
+}
+.hero-cta-wrap.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+  max-height: 200px;
+  margin-top: 24px;
+}
+.hero-cta-pulse {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff;
   border: none;
   border-radius: 50px;
+  padding: 16px 42px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
   cursor: pointer;
-  letter-spacing: .04em;
-  box-shadow: 0 0 32px rgba(124,58,237,.55);
-  transition: transform .15s, box-shadow .15s;
-  text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(124,58,237,.7);
+  animation: pulse-ring 2s infinite;
+  white-space: nowrap;
 }
-.btn:hover { transform: scale(1.04); box-shadow: 0 0 48px rgba(124,58,237,.75); }
-.btn:active { transform: scale(.98); }
-.warn {
-  margin-top: 22px;
-  font-size: 11px;
+.hero-cta-pulse:hover { filter: brightness(1.15); }
+.hero-cta-hint {
+  font-size: 12px;
   color: var(--fg2);
-  opacity: .55;
-  line-height: 1.5;
 }
-/* subtle divider line */
-.divider {
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent3), transparent);
-  margin: 0 auto 32px;
-  border-radius: 2px;
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(124,58,237,.7); }
+  70%  { box-shadow: 0 0 0 16px rgba(124,58,237,0);  }
+  100% { box-shadow: 0 0 0 0   rgba(124,58,237,0);  }
 }
 </style>
 </head>
 <body>
-<div class="box">
-  <span class="icon">🔞</span>
-  <h1>Você tem mais de<br><em>18 anos, amor?</em></h1>
-  <div class="divider"></div>
-  <a class="btn" href="main.html" onclick="sessionStorage.setItem('age-ok','1')">Sim, tenho 18+</a>
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="inner">
+    <div class="label">Paraisodasnovinhas</div>
+    <h1 class="hero-title">O lugar mais<br>privado de Angola<br><em>está de volta</em></h1>
+    <div class="hero-card">
+      <video id="hero-vid" class="hero-video" loop playsinline poster="https://cdn.converteai.net/bf101abd-cb0a-495e-990e-4c58bd246f87/6ac7fcc68380d780bf35a1f3/poster.jpg"></video>
+      <button class="hero-play-btn" id="hero-play-btn" aria-label="Play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="hero-card-label">Paraíso das novinhas</div>
+      <div class="hero-card-name">Paraíso das Novinhas</div>
+    </div>
+
+    <div class="hero-cta-wrap" id="hero-cta">
+      <button class="hero-cta-pulse" onclick="openModal()">TER ACESSO AGORA</button>
+      <span class="hero-cta-hint">Acesso imediato após pagamento</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXCLUSIVE -->
+<div style="text-align:center;padding:20px 0 0">
+  <div class="label">Exclusivo &amp; Real</div>
+</div>
+
+<!-- PREVIEWS -->
+<section class="previews">
+  <div class="inner">
+    <div class="sec-head">
+      <h2 class="sec-title">Veja como são os nossos<br><em style="font-style:italic">encontros privados</em></h2>
+      <p class="sec-desc">Prévias autênticas em tamanho original dos encontros mais exclusivos</p>
+    </div>
+    <div class="previews-grid">
+      <div class="preview-card" id="pc1">
+        <div class="preview-thumb">
+          <video id="pv1" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(1).mp4" preload="metadata" playsinline></video>
+          <div class="preview-tag">Encontro Privado #01</div>
+          <button class="play-btn" onclick="toggleVid('pv1','pc1')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="preview-footer"><div class="preview-name">Prévia Nova 01</div></div>
+      </div>
+      <div class="preview-card" id="pc2">
+        <div class="preview-thumb">
+          <video id="pv2" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(2).mp4" preload="metadata" playsinline></video>
+          <div class="preview-tag">Encontro Privado #02</div>
+          <button class="play-btn" onclick="toggleVid('pv2','pc2')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="preview-footer"><div class="preview-name">Prévia Nova 02</div></div>
+      </div>
+      <div class="preview-card" id="pc3">
+        <div class="preview-thumb">
+          <video id="pv3" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed.mp4" preload="metadata" playsinline></video>
+          <div class="preview-tag">Encontro Privado #03</div>
+          <button class="play-btn" onclick="toggleVid('pv3','pc3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="preview-footer"><div class="preview-name">Prévia Nova 03</div></div>
+      </div>
+      <div class="preview-locked">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
+        <h3>Esses vídeos têm mais de 15 minutos, escolha um plano para ver completo</h3>
+        <p>Desbloqueie o acesso integral em 4K a todas as gravações completas sem censura.</p>
+        <a class="btn btn-primary" href="#" onclick="event.preventDefault();openModal()">ESCOLHER MEU PLANO</a>
+      </div>
+    </div>
+    <div class="previews-nav">
+      <button class="nav-arrow" id="prev-pre">&#8592;</button>
+      <button class="nav-arrow" id="next-pre">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section class="catalog">
+  <div class="inner">
+    <div class="catalog-head">
+      <div class="label">Catálogo VIP</div>
+      <h2 class="sec-title">Vídeos privados<br><em style="font-style:italic">liberados</em></h2>
+      <p class="sec-desc">Explore os cards individuais e assista às prévias liberadas de cada Criadora</p>
+    </div>
+    <div class="carousel" id="carousel">
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/qNuzZRk.jpeg" alt="Patrícia Tomé">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Patrícia Tomé</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/O9G8B4D.jpeg" alt="Soraia Moreira">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Soraia Moreira</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/dUeVQGw.jpeg" alt="Gracieth Sacala">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Gracieth Sacala</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/pmmzYri.jpeg" alt="Meury Reis">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Meury Reis</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/qAmtWVb.jpeg" alt="Margareth">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Margareth</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/LQw1yOm.jpeg" alt="Yukissa de Fátima">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Yukissa de Fátima</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/Kr3j94N.jpeg" alt="Laureth Sousa">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Laureth Sousa</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/Qq8zSTv.jpeg" alt="Ana">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Ana</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/s1XmSNv.jpeg" alt="Nunes">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Nunes</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/6WHf5b1.jpeg" alt="Milena Missange">
+          <div class="creator-badge">3 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Milena Missange</div>
+          <div class="creator-count">3 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/ofeG7wm.jpeg" alt="Amélia">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Amélia</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/xyqIxg1.jpeg" alt="Pratah Naioh">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Pratah Naioh</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/Hz6HFYb.jpeg" alt="Zara Abigail">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Zara Abigail</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creator-card">
+        <div class="creator-photo">
+          <img src="https://i.imgur.com/ZTmeIv6.jpeg" alt="Alice Selende">
+          <div class="creator-badge">2 Conteúdos</div>
+        </div>
+        <div class="creator-body">
+          <div class="creator-name">Alice Selende</div>
+          <div class="creator-count">2 Conteúdos Privados Liberados</div>
+          <div class="creator-actions">
+            <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center">▶ VER AGORA</button>
+            <button class="btn-ig"><svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIP locked -->
+      <div class="creator-card" style="border-color:rgba(124,58,237,.5);min-width:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;background:linear-gradient(160deg,#1a1227,#110d1a)">
+        <div style="width:52px;height:52px;background:rgba(124,58,237,.15);border:2px solid rgba(124,58,237,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#c084fc"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div style="font-weight:700;font-size:14px;margin-bottom:6px">Acesso VIP</div>
+        <div style="font-size:12px;color:#a89cc0;margin-bottom:16px">Conteúdo exclusivo bloqueado</div>
+        <button class="btn btn-primary btn-sm" onclick="openModal()">ESCOLHER PLANO</button>
+      </div>
+
+    </div>
+    <div class="carousel-nav">
+      <button class="nav-arrow" id="prev">&#8592;</button>
+      <button class="nav-arrow" id="next">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- VIP LOCK -->
+<section class="vip-lock">
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="lock-icon">
+      <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+    </div>
+    <div class="label" style="justify-content:center;margin-bottom:16px">Acesso VIP</div>
+    <h2 class="vip-title">Conteúdo exclusivo<br><em style="font-style:italic">bloqueado</em></h2>
+    <p class="vip-sub">Desbloqueie todo o catálogo com acesso ilimitado</p>
+    <a class="btn btn-primary" href="#" onclick="event.preventDefault();openModal()">ESCOLHER PLANO</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="inner footer-inner">
+    <div class="footer-logo">PARAISODASNOVINHAS</div>
+    <div class="footer-copy">© 2025 paraisodasnovinhas. Todos os direitos reservados. Conteúdo privado protegido.</div>
+  </div>
+</footer>
+
+<!-- MODAL DE PLANOS -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title">Você poderá acessar por 3 planos: 👇</div>
+
+    <!-- Plano 15 Dias -->
+    <div class="plan-card">
+      <div class="plan-name">Plano 15 Dias ⏱</div>
+      <ul class="plan-features">
+        <li>10 vídeos exclusivos</li>
+        <li>24 fotos de modelos adultas 🍑</li>
+        <li>🔒 Grupo não incluído</li>
+      </ul>
+      <div class="plan-price">3.500 Kz</div>
+      <a class="btn-plan btn-plan-default" href="https://kitanda.onrender.com/paraiso-das-novinhas-plano-15-dias" target="_blank">Quero este plano</a>
+    </div>
+
+    <!-- Plano 1 Mês -->
+    <div class="plan-card popular">
+      <div class="plan-badge badge-popular">🔥 Mais Popular</div>
+      <div class="plan-name">Plano 1 Mês 🔥</div>
+      <ul class="plan-features">
+        <li>50 vídeos e 150 fotos</li>
+        <li>Conteúdos actualizados diariamente 🔄</li>
+        <li>1 conteúdo personalizado de uma criadora adulta à sua escolha ✨</li>
+        <li>Grupo de criadoras aberto</li>
+      </ul>
+      <div class="plan-price">5.000 Kz</div>
+      <a class="btn-plan btn-plan-popular" href="https://kitanda.onrender.com/paraiso-das-novinhas-plano-1-mes" target="_blank">Quero este plano</a>
+    </div>
+
+    <!-- Plano Vitalício -->
+    <div class="plan-card vitalicio">
+      <div class="plan-badge badge-vitalicio">💎 Vitalício</div>
+      <div class="plan-name">Conteúdo Vitalício 💎</div>
+      <ul class="plan-features">
+        <li>2.000 fotos e vídeos</li>
+        <li>Conteúdos actualizados todos os dias 📅</li>
+        <li>Conteúdos exclusivos nacionais em primeira mão</li>
+        <li>Grupo VIP de criadoras adultas</li>
+        <li>Chat para conhecer pessoas 💬</li>
+        <li>Conteúdos exclusivos de criadoras</li>
+        <li>2 videochamadas com criadoras adultas à sua escolha 🔥</li>
+        <li>Lives no grupo privado</li>
+        <li>Contactos públicos das criadoras</li>
+        <li>Grupo de WhatsApp com criadoras adultas</li>
+      </ul>
+      <div class="plan-price">9.900 Kz</div>
+      <a class="btn-plan btn-plan-vitalicio" href="https://kitanda.onrender.com/paraiso-das-novinhas-plano-vitalicio" target="_blank">Quero este plano</a>
+    </div>
+
+    <div class="modal-footer">
+      <span>🔒 Pagamento 100% Seguro</span>
+      <span>⚡ Acesso Imediato no WhatsApp</span>
+      <span>🛡 Compra Discreta</span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// Modal
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Creator video modal
+const CREATOR_VIDEOS = [
+  { name: 'Patrícia Tomé', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/patricia/VID-mrc8lqid.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/patricia/VID-mrc8mnyv.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/patricia/VID-mrc8fpcf.mp4',
+  ]},
+  { name: 'Soraia Moreira', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/novos%20vdz/WhatsApp%20Video%202026-06-10%20at%2010.19.34.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/novos%20vdz/WhatsApp%20Video%202026-06-10%20at%2011.15.00.mp4',
+  ]},
+  { name: 'Gracieth Sacala', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/VID-mjt2kg26.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/VID-mjt3preo.mp4',
+  ]},
+  { name: 'Meury Reis', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/novos%20vdz/WhatsApp%20Video%202026-06-10%20at%2010.23.04.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/novos%20vdz/WhatsApp%20Video%202026-06-10%20at%2010.23.04%20(1).mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/meury/VID-mp07ppty.mp4',
+  ]},
+  { name: 'Margareth', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/MARGARETH/WhatsApp%20Video%202026-04-25%20at%2017.08.45.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/MARGARETH/VID-mnef30vy%20(1).mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/MARGARETH/VID-mnef3w8h%20(1).mp4',
+  ]},
+  { name: 'Yukissa de Fátima', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/VID-mnsiivah.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/fatma/VID-mnc441da.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/fatma/WhatsApp%20Video%202026-05-04%20at%2006.49.24.mp4',
+  ]},
+  { name: 'Laureth Sousa', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/laureth/VID-mnsjg9lg.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/laureth/VID-mnu3i65e.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/laureth/VID-mnu3ian2.mp4',
+  ]},
+  { name: 'Ana', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/VID-mjr82h31.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/VID-mjshwma9.mp4',
+  ]},
+  { name: 'Nunes', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/WhatsApp%20Video%202026-08-14%20at%2016.26.19.mp4',
+  ]},
+  { name: 'Milena Missange', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed.mp4',
+  ]},
+  { name: 'Amélia', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/PRETAS%20NAME/WhatsApp%20Video%202026-04-08%20at%2009.59.25.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/PRETAS%20NAME/WhatsApp%20Video%202026-04-08%20at%2010.00.04.mp4',
+  ]},
+  { name: 'Pratah Naioh', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/pratah/VID-mmnh28an.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/pratah/VID-mmnh5fg9.mp4',
+  ]},
+  { name: 'Zara Abigail', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/zara/VID-mmnnnsvm.mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/do%20telegram/zara/VID-mmnnyn54.mp4',
+  ]},
+  { name: 'Alice Selende', videos: [
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(1).mp4',
+    'https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(2).mp4',
+  ]},
+];
+
+function openCreatorModal(idx) {
+  const cOverlay = document.getElementById('creator-modal-overlay');
+  const cName    = document.getElementById('creator-modal-name');
+  const cTabs    = document.getElementById('creator-modal-tabs');
+  const c = CREATOR_VIDEOS[idx];
+  cName.textContent = c.name;
+  cTabs.innerHTML = '';
+  c.videos.forEach((v, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'creator-tab' + (i === 0 ? ' active' : '');
+    btn.textContent = 'Vídeo ' + (i + 1);
+    btn.onclick = () => {
+      cTabs.querySelectorAll('.creator-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      playCreatorVideo(v);
+    };
+    cTabs.appendChild(btn);
+  });
+  playCreatorVideo(c.videos[0]);
+  cOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function playCreatorVideo(url) {
+  const cVideo = document.getElementById('creator-modal-video');
+  cVideo.innerHTML = '<video src="' + url + '" controls autoplay playsinline></video>';
+}
+
+function closeCreatorModal() {
+  const cOverlay = document.getElementById('creator-modal-overlay');
+  const cVideo   = document.getElementById('creator-modal-video');
+  cOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  cVideo.innerHTML = '';
+}
+
+// Wire VER AGORA buttons on creator cards (after DOM is ready)
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('creator-modal-overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeCreatorModal();
+  });
+  document.querySelectorAll('.creator-card').forEach((card, idx) => {
+    const btn = card.querySelector('.btn.btn-primary.btn-sm');
+    if (btn && btn.textContent.includes('VER AGORA')) {
+      btn.addEventListener('click', e => { e.preventDefault(); openCreatorModal(idx); });
+    }
+  });
+});
+
+// Botão abaixo do vídeo aparece após 2 minutos e 30 segundos (150 000ms)
+setTimeout(() => {
+  document.getElementById('hero-cta').classList.add('visible');
+}, 150000);
+
+// Carousel
+const carousel = document.getElementById('carousel');
+const STEP = 236;
+document.getElementById('prev').onclick = () => carousel.scrollBy({ left: -STEP, behavior: 'smooth' });
+document.getElementById('next').onclick = () => carousel.scrollBy({ left:  STEP, behavior: 'smooth' });
+
+const previewGrid = document.querySelector('.previews-grid');
+const PSTEP = 276;
+document.getElementById('prev-pre').onclick = () => previewGrid.scrollBy({ left: -PSTEP, behavior: 'smooth' });
+document.getElementById('next-pre').onclick = () => previewGrid.scrollBy({ left:  PSTEP, behavior: 'smooth' });
+
+// Preview videos
+function toggleVid(vidId, cardId) {
+  const v = document.getElementById(vidId);
+  const c = document.getElementById(cardId);
+  if (v.paused) {
+    ['pv1','pv2','pv3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.pause();
+    });
+    ['pc1','pc2','pc3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('vid-playing');
+    });
+    v.play();
+    c.classList.add('vid-playing');
+  } else {
+    v.pause();
+    c.classList.remove('vid-playing');
+  }
+}
+
+
+// Force first frame on preview videos (fixes black screen on mobile)
+['pv1','pv2','pv3'].forEach(id => {
+  const v = document.getElementById(id);
+  if (!v) return;
+  v.addEventListener('loadedmetadata', () => { v.currentTime = 0.001; });
+});
+
+// Hero HLS video
+const heroVid = document.getElementById('hero-vid');
+const heroPlayBtn = document.getElementById('hero-play-btn');
+const HLS_SRC = 'https://cdn.converteai.net/bf101abd-cb0a-495e-990e-4c58bd246f87/6ac7fcc68380d780bf35a1f3/video_1.m3u8';
+if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
+  heroVid.src = HLS_SRC;
+} else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(HLS_SRC);
+  hls.attachMedia(heroVid);
+}
+function heroTogglePlay() {
+  if (heroVid.paused) {
+    heroVid.play().then(() => {
+      heroPlayBtn.classList.add('hidden');
+    }).catch(() => {});
+  } else {
+    heroVid.pause();
+  }
+}
+heroPlayBtn.addEventListener('click', e => { e.stopPropagation(); heroTogglePlay(); });
+document.querySelector('.hero-card').addEventListener('click', heroTogglePlay);
+heroVid.addEventListener('pause', () => heroPlayBtn.classList.remove('hidden'));
+heroVid.addEventListener('ended', () => heroPlayBtn.classList.remove('hidden'));
+</script>
+<!-- Creator Video Modal -->
+<div class="creator-modal-overlay" id="creator-modal-overlay">
+  <div class="creator-modal">
+    <button class="creator-modal-close" onclick="closeCreatorModal()">&#x2715;</button>
+    <h2 class="creator-modal-name" id="creator-modal-name"></h2>
+    <div class="creator-modal-tabs" id="creator-modal-tabs"></div>
+    <div class="creator-modal-video" id="creator-modal-video"></div>
+  </div>
 </div>
 </body>
 </html>
