@@ -617,6 +617,61 @@ footer {
 }
 .modal-footer span { display: flex; align-items: center; gap: 4px; }
 
+/* AGE GATE */
+#age-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(90,30,180,.28) 0%, transparent 70%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+#age-gate.hidden { display: none; }
+.age-gate-box {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+.age-gate-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+.age-gate-title {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 6vw, 34px);
+  line-height: 1.25;
+  margin-bottom: 10px;
+  color: var(--fg);
+}
+.age-gate-title em {
+  color: var(--accent3);
+  font-style: italic;
+}
+.age-gate-sub {
+  color: var(--fg2);
+  font-size: 14px;
+  margin-bottom: 36px;
+}
+.age-gate-btn {
+  display: inline-block;
+  padding: 16px 56px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: .04em;
+  box-shadow: 0 0 28px rgba(124,58,237,.5);
+  transition: transform .15s, box-shadow .15s;
+}
+.age-gate-btn:hover { transform: scale(1.04); box-shadow: 0 0 40px rgba(124,58,237,.7); }
+.age-gate-warn {
+  margin-top: 20px;
+  font-size: 11px;
+  color: var(--fg2);
+  opacity: .6;
+}
 /* HERO CTA (aparece abaixo do vídeo após 2m30s) */
 .hero-cta-wrap {
   margin-top: 0;
@@ -667,6 +722,18 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- AGE GATE -->
+<div id="age-gate">
+  <div class="age-gate-box">
+    <div class="age-gate-icon">🔞</div>
+    <h1 class="age-gate-title">Você tem mais de<br><em>18 anos, amor?</em></h1>
+    <p class="age-gate-sub">Este site contém conteúdo exclusivo para adultos.</p>
+    <button class="age-gate-btn" onclick="enterSite()">Sim, tenho 18+</button>
+    <p class="age-gate-warn">Ao entrar confirmas que tens idade legal para aceder a este conteúdo.</p>
+  </div>
+</div>
+
 
 
 <!-- HERO -->
@@ -1220,6 +1287,15 @@ function toggleVid(vidId, cardId) {
     v.pause();
     c.classList.remove('vid-playing');
   }
+}
+
+// Age gate
+function enterSite() {
+  document.getElementById('age-gate').classList.add('hidden');
+  sessionStorage.setItem('age-ok', '1');
+}
+if (sessionStorage.getItem('age-ok') === '1') {
+  document.getElementById('age-gate').classList.add('hidden');
 }
 
 // Force first frame on preview videos (fixes black screen on mobile)
