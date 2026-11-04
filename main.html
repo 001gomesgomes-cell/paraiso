@@ -709,7 +709,7 @@ footer {
     <div class="previews-grid">
       <div class="preview-card" id="pc1">
         <div class="preview-thumb">
-          <video id="pv1" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(1).mp4" preload="metadata" playsinline></video>
+          <video id="pv1" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(1).mp4" autoplay muted loop playsinline></video>
           <div class="preview-tag">Encontro Privado #01</div>
           <button class="play-btn" onclick="toggleVid('pv1','pc1')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
@@ -717,7 +717,7 @@ footer {
       </div>
       <div class="preview-card" id="pc2">
         <div class="preview-thumb">
-          <video id="pv2" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(2).mp4" preload="metadata" playsinline></video>
+          <video id="pv2" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed%20(2).mp4" autoplay muted loop playsinline></video>
           <div class="preview-tag">Encontro Privado #02</div>
           <button class="play-btn" onclick="toggleVid('pv2','pc2')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
@@ -725,7 +725,7 @@ footer {
       </div>
       <div class="preview-card" id="pc3">
         <div class="preview-thumb">
-          <video id="pv3" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed.mp4" preload="metadata" playsinline></video>
+          <video id="pv3" src="https://pub-ea8795f208374487982abd159c26e7a0.r2.dev/oprivvv/wmremove-transformed.mp4" autoplay muted loop playsinline></video>
           <div class="preview-tag">Encontro Privado #03</div>
           <button class="play-btn" onclick="toggleVid('pv3','pc3')"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
@@ -1230,7 +1230,10 @@ function toggleVid(vidId, cardId) {
 ['pv1','pv2','pv3'].forEach(id => {
   const v = document.getElementById(id);
   if (!v) return;
-  v.addEventListener('loadedmetadata', () => { v.currentTime = 0.001; });
+  const card = v.closest('.preview-card');
+  // hide play button while autoplaying muted
+  v.addEventListener('play', () => { if (card) card.classList.add('vid-playing'); });
+  v.addEventListener('pause', () => { if (card) card.classList.remove('vid-playing'); });
 });
 
 // Hero HLS video — autoplay with audio (user already confirmed age on gate page)
