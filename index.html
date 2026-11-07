@@ -1271,21 +1271,32 @@ const heroPlayBtn = document.getElementById('hero-play-btn');
 const heroUnmuteBtn = document.getElementById('hero-unmute-btn');
 const HLS_SRC = 'https://cdn.converteai.net/bf101abd-cb0a-495e-990e-4c58bd246f87/6ac7fcc68380d780bf35a1f3/video_1.m3u8';
 
-heroVid.muted = true;
+function tryPlayWithSound(callback) {
+  heroVid.muted = true;
+  heroVid.play().then(() => {
+    heroVid.muted = false; // desmutar imediatamente após arrancar
+    heroPlayBtn.classList.add('hidden');
+    heroUnmuteBtn.classList.add('hidden');
+    if (callback) callback();
+  }).catch(() => {
+    // browser bloqueou — mostrar botão de som como fallback
+    heroUnmuteBtn.classList.remove('hidden');
+  });
+}
+
 if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
   heroVid.src = HLS_SRC;
-  heroVid.play().then(() => { heroPlayBtn.classList.add('hidden'); heroUnmuteBtn.classList.remove('hidden'); }).catch(() => {});
+  tryPlayWithSound();
 } else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
   const hls = new Hls();
   hls.loadSource(HLS_SRC);
   hls.attachMedia(heroVid);
-  hls.on(Hls.Events.MANIFEST_PARSED, () => {
-    heroVid.play().then(() => { heroPlayBtn.classList.add('hidden'); heroUnmuteBtn.classList.remove('hidden'); }).catch(() => {});
-  });
+  hls.on(Hls.Events.MANIFEST_PARSED, () => { tryPlayWithSound(); });
 }
 
 heroUnmuteBtn.addEventListener('click', () => {
   heroVid.muted = false;
+  heroVid.play().catch(() => {});
   heroUnmuteBtn.textContent = '🔊 Som ativo';
   setTimeout(() => heroUnmuteBtn.classList.add('hidden'), 1500);
 });
