@@ -21,41 +21,6 @@
   --font-serif:'DM Serif Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
-/* AGE GATE */
-#age-gate {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #0a0713;
-  display: flex; align-items: center; justify-content: center; padding: 24px 16px;
-}
-#age-gate.hidden { display: none; }
-.ag-card {
-  background: #13102a; border: 1px solid rgba(120,60,220,.22);
-  border-radius: 24px; padding: 40px 28px 36px;
-  max-width: 420px; width: 100%; text-align: center;
-  box-shadow: 0 0 60px rgba(80,30,180,.18);
-}
-.ag-icon {
-  width: 80px; height: 80px; background: #1e1840; border-radius: 20px;
-  display: flex; align-items: center; justify-content: center; margin: 0 auto 28px;
-}
-.ag-icon svg { width: 38px; height: 38px; fill: none; stroke: #a78bfa; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.ag-label { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #a78bfa; margin-bottom: 14px; }
-.ag-title { font-family: var(--font-serif); font-size: clamp(28px,7vw,38px); font-weight: 700; line-height: 1.15; color: #fff; margin-bottom: 18px; }
-.ag-btn-yes {
-  display: block; width: 100%; padding: 17px;
-  background: #7c3aed; color: #fff; font-size: 16px; font-weight: 700;
-  border: none; border-radius: 14px; cursor: pointer; margin-bottom: 12px;
-  transition: background .15s;
-}
-.ag-btn-yes:hover { background: #6d28d9; }
-.ag-btn-no {
-  display: block; width: 100%; padding: 17px;
-  background: #1e1840; color: #a78bfa; font-size: 16px; font-weight: 600;
-  border: 1px solid rgba(120,60,220,.3); border-radius: 14px; cursor: pointer;
-  margin-bottom: 24px; text-decoration: none; transition: background .15s;
-}
-.ag-btn-no:hover { background: #251e50; }
-.ag-footer { font-size: 12px; color: #6b5a90; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: var(--bg);
@@ -722,19 +687,6 @@ footer {
 </head>
 <body>
 
-<!-- AGE GATE OVERLAY -->
-<div id="age-gate">
-  <div class="ag-card">
-    <div class="ag-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5.25 3.5 9.74 8 11 4.5-1.26 8-5.75 8-11V6l-8-4z"/><polyline points="9 12 11 14 15 10"/></svg>
-    </div>
-    <img src="img/gate-label.svg" alt="" style="width:100%;max-width:240px;height:auto;margin-bottom:14px;display:block;margin-left:auto;margin-right:auto;">
-    <img src="img/gate-title.svg" alt="" style="width:100%;max-width:360px;height:auto;margin-bottom:18px;display:block;margin-left:auto;margin-right:auto;">
-    <button class="ag-btn-yes" id="ag-yes"><img src="img/gate-btn1.svg" alt="" style="width:100%;max-width:300px;height:auto;pointer-events:none;display:block;margin:auto;"></button>
-    <a class="ag-btn-no" href="https://www.google.com"><img src="img/gate-btn2.svg" alt="" style="width:100%;max-width:220px;height:auto;pointer-events:none;display:block;margin:auto;"></a>
-    <img src="img/gate-footer.svg" alt="" style="width:100%;max-width:360px;height:auto;display:block;margin:0 auto;">
-  </div>
-</div>
 
 
 <!-- HERO -->
@@ -1301,35 +1253,18 @@ function toggleVid(vidId, cardId) {
   v.addEventListener('pause', () => { if (card) card.classList.remove('vid-playing'); });
 });
 
-// Age gate — ao clicar Sim, esconde o overlay e toca o vídeo com som (mesmo gesto)
-const ageGate = document.getElementById('age-gate');
+// Hero HLS video
 const heroVid = document.getElementById('hero-vid');
 const heroPlayBtn = document.getElementById('hero-play-btn');
 const HLS_SRC = 'https://cdn.converteai.net/bf101abd-cb0a-495e-990e-4c58bd246f87/6ac7fcc68380d780bf35a1f3/video_1.m3u8';
 
-let hlsReady = false;
-let hlsInstance = null;
-
-function loadHls() {
-  if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
-    heroVid.src = HLS_SRC;
-    hlsReady = true;
-  } else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-    hlsInstance = new Hls({ autoStartLoad: false });
-    hlsInstance.loadSource(HLS_SRC);
-    hlsInstance.attachMedia(heroVid);
-    hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => { hlsReady = true; });
-    hlsInstance.startLoad();
-  }
+if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
+  heroVid.src = HLS_SRC;
+} else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(HLS_SRC);
+  hls.attachMedia(heroVid);
 }
-loadHls();
-
-document.getElementById('ag-yes').addEventListener('click', () => {
-  ageGate.classList.add('hidden');
-  document.body.style.overflow = '';
-  heroVid.muted = false;
-  heroVid.play().then(() => heroPlayBtn.classList.add('hidden')).catch(() => {});
-});
 
 function heroTogglePlay() {
   if (heroVid.paused) {
