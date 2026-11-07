@@ -172,6 +172,17 @@ nav {
 .hero-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
 .hero-play-btn.hidden { opacity: 0; pointer-events: none; }
 .hero-unmute-btn {
+  position: absolute; bottom: 14px; right: 14px; z-index: 4;
+  background: rgba(0,0,0,.65); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.2); border-radius: 999px;
+  color: #fff; font-size: 13px; font-weight: 600;
+  padding: 7px 14px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: background .15s;
+}
+.hero-unmute-btn:hover { background: rgba(124,58,237,.8); }
+.hero-unmute-btn.hidden { display: none; }
+.hero-unmute-btn {
   position: absolute;
   bottom: 14px; right: 14px;
   z-index: 4;
@@ -700,6 +711,7 @@ footer {
       <button class="hero-play-btn" id="hero-play-btn" aria-label="Play">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </button>
+      <button class="hero-unmute-btn hidden" id="hero-unmute-btn">🔇 Toca para ativar som</button>
       <div class="hero-card-label">Paraíso das novinhas</div>
       <div class="hero-card-name">Paraíso das Novinhas</div>
     </div>
@@ -1253,18 +1265,30 @@ function toggleVid(vidId, cardId) {
   v.addEventListener('pause', () => { if (card) card.classList.remove('vid-playing'); });
 });
 
-// Hero HLS video
+// Hero HLS video — autoplay mudo, botão para ativar som
 const heroVid = document.getElementById('hero-vid');
 const heroPlayBtn = document.getElementById('hero-play-btn');
+const heroUnmuteBtn = document.getElementById('hero-unmute-btn');
 const HLS_SRC = 'https://cdn.converteai.net/bf101abd-cb0a-495e-990e-4c58bd246f87/6ac7fcc68380d780bf35a1f3/video_1.m3u8';
 
+heroVid.muted = true;
 if (heroVid.canPlayType('application/vnd.apple.mpegurl')) {
   heroVid.src = HLS_SRC;
+  heroVid.play().then(() => { heroPlayBtn.classList.add('hidden'); heroUnmuteBtn.classList.remove('hidden'); }).catch(() => {});
 } else if (typeof Hls !== 'undefined' && Hls.isSupported()) {
   const hls = new Hls();
   hls.loadSource(HLS_SRC);
   hls.attachMedia(heroVid);
+  hls.on(Hls.Events.MANIFEST_PARSED, () => {
+    heroVid.play().then(() => { heroPlayBtn.classList.add('hidden'); heroUnmuteBtn.classList.remove('hidden'); }).catch(() => {});
+  });
 }
+
+heroUnmuteBtn.addEventListener('click', () => {
+  heroVid.muted = false;
+  heroUnmuteBtn.textContent = '🔊 Som ativo';
+  setTimeout(() => heroUnmuteBtn.classList.add('hidden'), 1500);
+});
 
 function heroTogglePlay() {
   if (heroVid.paused) {
