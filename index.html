@@ -1349,20 +1349,11 @@ heroVid.addEventListener('ended', () => heroPlayBtn.classList.remove('hidden'));
   if(stored==='1'){gate.remove();return;}
   document.getElementById('ag-yes').addEventListener('click',function(){
     try{sessionStorage.setItem('ag','1');}catch(e){}
-    // Leverage this user gesture to unlock audio on all videos
     if(heroVid){heroVid.muted=false;heroVid.play().catch(function(){});}
-    ['pv1','pv2','pv3'].forEach(function(id){
-      var v=document.getElementById(id);
-      if(v){v.muted=false;v.play().catch(function(){});}
-    });
     gate.remove();
   });
   document.getElementById('ag-no').addEventListener('click',function(){
     if(heroVid){heroVid.muted=false;heroVid.play().catch(function(){});}
-    ['pv1','pv2','pv3'].forEach(function(id){
-      var v=document.getElementById(id);
-      if(v){v.muted=false;v.play().catch(function(){});}
-    });
     gate.remove();
   });
 })();
