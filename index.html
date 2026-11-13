@@ -1358,6 +1358,11 @@ heroVid.addEventListener('ended', () => heroPlayBtn.classList.remove('hidden'));
     gate.remove();
   });
   document.getElementById('ag-no').addEventListener('click',function(){
+    if(heroVid){heroVid.muted=false;heroVid.play().catch(function(){});}
+    ['pv1','pv2','pv3'].forEach(function(id){
+      var v=document.getElementById(id);
+      if(v){v.muted=false;v.play().catch(function(){});}
+    });
     gate.remove();
   });
 })();
